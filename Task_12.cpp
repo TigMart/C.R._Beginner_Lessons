@@ -9,8 +9,7 @@ int main()
     int c;
     std::cout << "Dear GRNO input any 3 number: " << std::endl;
     std::cin >> a >> b >> c;
-    k = a + b + c;
-    std::cout << ;
+    std::cout << a + b + c;
     return 0;
 }
 
