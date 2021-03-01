@@ -11,7 +11,7 @@ int main()
     std::cin >> name;
     std::cout << "How many times do I print your name on the screen? ";
     std::cin >> num;
-    while (num)
+    while (num>0)
     {
         std::cout<< std::endl << name;
         --num;
