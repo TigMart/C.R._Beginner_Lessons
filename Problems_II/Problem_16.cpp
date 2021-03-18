@@ -1,0 +1,24 @@
+// Task_16.cpp:
+
+#include <iostream>
+
+int main()
+{
+    const int size = 5;
+    int arr[size];
+    std::cout << "Enter a number: ";
+    std::cin >> arr[0];
+    int max_index = 0;
+    for (int i = 1; i < size; ++i)
+    {
+        std::cout << "Enter a number: ";
+        std::cin >> arr[i];
+        if (arr[max_index] < arr[i])
+        {
+            
+            max_index = i;
+        }
+    }
+    std::cout << "The largest element index: " << max_index;
+    return 0;
+}
