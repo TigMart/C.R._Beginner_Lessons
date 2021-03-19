@@ -9,9 +9,9 @@ int main()
     std::cout << "Enter a number: ";
     std::cin >> arr[0];
     int max_index = 0;
-    for (int i = 1; i < size; ++i)
+    for (int i = 0; i < size; ++i)
     {
-        std::cout << "Enter a number: ";
+        std::cout << "Enter a number "<<i<<": ";
         std::cin >> arr[i];
         if (arr[max_index] < arr[i])
         {
