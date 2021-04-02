@@ -12,6 +12,7 @@ int main()
     int* arr_y = new (std::nothrow) int[arr_size];
     if (arr_x == nullptr || arr_y == nullptr) {
         std::cout << "Error: Allocated memory ";
+        return 0;
     }
     else {
         for (int i = 0; i < arr_size; ++i) {
