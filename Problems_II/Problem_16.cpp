@@ -7,7 +7,7 @@ int main()
     const int size = 5;
     int arr[size];
     int max_index = 0;
-    for (int i = 0; i < size; ++i)
+    for (int i = 1; i < size; ++i)
     {
         std::cout << "Enter a number "<<i<<": ";
         std::cin >> arr[i];
