@@ -4,13 +4,10 @@
 int main() 
 {
 	int number = 0;
-	int i = 0;
 	std::cout << "Enter a positive number = ";
 	std::cin >> number;
-	while (number > 0) {
-		i = number % 10;
-		number /= 10;
-		std::cout << i <<'\t';
+	for (; number != 0; number/=10) {
+		std::cout << number % 10<<'\t';
 	}
 	return 0;
 }
