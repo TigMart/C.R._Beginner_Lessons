@@ -30,6 +30,7 @@ int main()
     int arr_size = 0;
     std::cout << "Enter a size of array: ";
     std::cin >> arr_size;
+    if (arr_size == 0) { return 0; }
     int* arr = new (std::nothrow) int[arr_size];
     if (arr == nullptr) {
         std::cout << "Error: Allocated Memory";
