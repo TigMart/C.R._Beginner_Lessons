@@ -43,11 +43,15 @@ void delete_matrix(int** matrix, int size) {
 
 void rewrite_array(int** matrix, int size) {
     int arr[100]{};
+    int k = 0;
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            arr[j] = matrix[i][j];
-            std::cout << arr[j]<<" ";
+            arr[k] = matrix[i][j];
+            ++k;
         }
+    }
+    for (int i = 0; i < size*size; ++i) {
+        std::cout << arr[i] << " ";
     }
 }
 
