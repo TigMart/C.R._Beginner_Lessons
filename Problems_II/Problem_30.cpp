@@ -1,6 +1,8 @@
 // Problem_30.cpp : 
 
 #include <iostream>
+#include <new>
+#include <vector>
 
 int** Matrix(int size);
 void delete_matrix(int** matrix, int size);
@@ -42,16 +44,15 @@ void delete_matrix(int** matrix, int size) {
 }
 
 void rewrite_array(int** matrix, int size) {
-    int arr[100]{};
-    int k = 0;
+    std::vector<int> arr;
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            arr[k] = matrix[i][j];
-            ++k;
+            arr.push_back(matrix[i][j]);
+
         }
     }
-    for (int i = 0; i < size*size; ++i) {
-        std::cout << arr[i] << " ";
+    for (int i:arr){
+        std::cout << i << " ";
     }
 }
 
