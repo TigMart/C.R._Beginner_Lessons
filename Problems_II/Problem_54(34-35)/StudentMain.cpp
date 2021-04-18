@@ -28,4 +28,5 @@ int main()
 	else {
 		std::cout << female.get_name();
 	}
+	return 0;
 }
