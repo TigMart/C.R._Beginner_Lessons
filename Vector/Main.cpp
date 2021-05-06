@@ -3,19 +3,21 @@
 int main()
 {
 	Vector<int> vec;
-	for (int i = 1; i < 5; ++i) {
+	for (int i = 1; i < 8; ++i) {
 		vec.push_back(i * 2);
 	}
-	Vector<char> vec1;
+	Vector<int> vec1;
 	for (int i = 97; i < 102; ++i) {
 		vec1.push_back(i);
 	}
 	Vector<int> vec2;
+	Vector<int> vec3;
 	vec2 = vec;
 	std::cout << "vector size : " << vec.size() << std::endl;
 	std::cout << "vector elements : ";
 	vec.print();
-	vec.push(100, 1);
+
+	vec.push(100, 4);
 	std::cout << std::endl << "After updating 1st index" << std::endl;
 	std::cout << "vector elements of type int : " << std::endl;
 	vec.print();
@@ -37,6 +39,10 @@ int main()
 	vec.print();
 	std::cout << "vector 2 elements : ";
 	vec2.print();
+	std::cout << std::endl;
+	std::cout << std::endl;
+	vec.erase(6);
+	vec.print();
 	return 0;
 }
 
