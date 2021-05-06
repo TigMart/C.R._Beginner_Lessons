@@ -10,7 +10,7 @@ public:
 	Vector();
 	~Vector();
 	Vector<T>& operator=(const Vector<T>& rhs);
-public:
+
 	void push_back(const T& elem);
 	void push(int elem, int index);
 	T& operator[](int index)const;
@@ -18,10 +18,11 @@ public:
 	int size()const;
 	void print();
 	void push_front(const T& elem);
-
+	void erase(int index);
+	short Id();
 private:
 	void ReAlloc();
-private:
+
 	int m_capacity;
 	int m_size;
 	T* m_arr;
@@ -29,4 +30,5 @@ private:
 };
 
 #include "Vector_imp.tpp"
+
 #endif // _VECTOR_
