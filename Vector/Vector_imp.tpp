@@ -13,7 +13,7 @@ void Vector<T>::push_back(const T& elem)
 template<class T>
 void Vector<T>::push_front(const T& elem) {
 	if (m_size == m_capacity) {
-		
+
 		m_capacity *= 2;
 		T* temp = new T[m_capacity];
 		temp[0] = elem;
@@ -48,6 +48,17 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& rhs)
 	}
 	return *this;
 }
+
+template <typename T>
+T& Vector<T>::operator[](int index)const
+{
+		if (index<m_size)
+			return m_arr[index];
+		std::cout << "Out of range!";
+		throw 0;
+
+}
+
 template <typename T>
 void Vector<T>::ReAlloc()
 {
@@ -61,12 +72,7 @@ void Vector<T>::ReAlloc()
 	m_arr = temp;
 }
 
-template <typename T>
-T& Vector<T>::operator[](int index)const
-{
-	if (index < m_size)
-		return m_arr[index];
-}
+
 
 template <typename T>
 int Vector<T>::size() const { return m_size; }
@@ -95,6 +101,21 @@ void Vector<T>::print()
 		std::cout << m_arr[i] << " ";
 	}
 	std::cout << std::endl;
+}
+template <typename T>
+void Vector<T>::erase(int index)
+{
+	T* tmp = new T[m_capacity];
+	for (int i = 0; i < index; ++i) {
+		tmp[i] = m_arr[i];
+	}
+	for (int i = index + 1; i < m_size; ++i) {
+		tmp[i - 1] = m_arr[i];
+	}
+	m_size--;
+	delete[] m_arr;
+	m_arr = nullptr;
+	m_arr = tmp;
 }
 
 template <typename T>
