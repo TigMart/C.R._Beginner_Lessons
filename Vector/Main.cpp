@@ -1,48 +1,90 @@
 #include "vector.h"
 
+Vector<int>&& move(Vector<int>& x);
+
 int main()
 {
 	Vector<int> vec;
-	for (int i = 1; i < 8; ++i) {
-		vec.push_back(i * 2);
+	for (int i = 0; i < 5; ++i) {
+		vec.push_back(i);
 	}
 	Vector<int> vec1;
-	for (int i = 97; i < 102; ++i) {
+	for (int i = 5; i < 10; ++i) {
 		vec1.push_back(i);
 	}
+	std::cout << "Vector_1:  ";
+	vec.print();
+	std::cout << std::endl;
+	std::cout << "Vector_2:  ";
+	vec1.print();
+	std::cout << std::endl;
+	Vector<int> vec6(vec + vec1);
+	vec6.print();
+
+	std::cout << std::endl;
+	std::cout<<"vector_1 Back: "<<vec.back() << std::endl;
+	std::cout<<"vector_1 Front: " <<vec.front() << std::endl;
+	std::cout << std::endl;
 	Vector<int> vec2;
-	Vector<int> vec3;
-	vec2 = vec;
-	std::cout << "vector size : " << vec.size() << std::endl;
-	std::cout << "vector elements : ";
+	vec2 = vec;	
+	vec2.print();
+
+	std::cout <<std::endl<< "vector_1 size: " << vec.size() << std::endl;
+	std::cout << "vector_2 size: " << vec1.size() << std::endl;
+
+	vec.push(100, 1);
+	std::cout << std::endl << "After updating 1st index" << std::endl;
+
+	std::cout << "vector_1 elements: ";
 	vec.print();
 
-	vec.push(100, 4);
-	std::cout << std::endl << "After updating 1st index" << std::endl;
-	std::cout << "vector elements of type int : " << std::endl;
-	vec.print();
-	std::cout << "vector elements of type char : " << std::endl;
+	vec1.push(100, 1);
+	std::cout << "vector_2 elements: ";
 	vec1.print();
-	std::cout << "Element at 1st index of type int: " << vec[1] << std::endl;
-	std::cout << "Element at 1st index of type char: " << vec1[1] << std::endl;
+
+	std::cout << "Element at 1st index: " << vec[1] << std::endl;
+	std::cout << "Element at 1st index: " << vec1[1] << std::endl;
 	vec.pop_Back();
 	vec1.pop_Back();
+
 	std::cout << std::endl << "After deleting last element" << std::endl;
-	std::cout << "vector size of type int: " << vec.size() << std::endl;
-	std::cout << "vector size of type char: " << vec1.size() << std::endl;
-	std::cout << "vector elements of type int: ";
+	std::cout << "vector_1 size: " << vec.size() << std::endl;
+
+	std::cout << "vector_2 size: " << vec1.size() << std::endl;
+
+	std::cout << "vector_1 elements: ";
 	vec.print();
-	std::cout << "vector elements of type char: ";
+	std::cout << "vector_2 elements: ";
 	vec1.print();
-	std::cout << std::endl << "After adding element in front of vector: ";
+
+	std::cout << std::endl << "After adding elements in front of"<<std::endl;
+	std::cout << "vector_1 elements: ";
 	vec.push_front(88);
 	vec.print();
-	std::cout << "vector 2 elements : ";
+	vec2.push_front(77);
+	std::cout << "vector_2 elements: ";
 	vec2.print();
+
 	std::cout << std::endl;
-	std::cout << std::endl;
-	vec.erase(6);
+	std::cout << "After erase 4th element vector_1: " << std::endl;
+	vec.erase(4);
 	vec.print();
+	std::cout << std::endl;
+	std::cout << "vector_3 elements: " << std::endl;
+	Vector<int> vec3(vec);
+	vec3.print();
+
+	std::cout << std::endl;
+	Vector<int> vec4(move(vec1));
+	vec4.print();
+	vec1.print();
+	Vector<int> vec5;
+	vec5 = move(vec2);
+	vec5.print();
+	vec2.print();
 	return 0;
 }
 
+Vector<int>&& move(Vector<int>& x) {
+	return static_cast <Vector<int>&&>(x);
+}
