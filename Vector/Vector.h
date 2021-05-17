@@ -8,6 +8,7 @@ template <typename T>
 class Vector
 {
 public:
+
 	Vector();  // default ctor
 	Vector(const Vector<T>& other); // copy ctor
 	Vector<T>& operator=(const Vector<T>& rhs); // copy assignment
@@ -27,7 +28,8 @@ public:
 	T& at(int index) const;
 	T& front();
 	T& back();
-	void print();
+	virtual void print();
+	T* get_arr();
 private:
 	void ReAlloc();
 	void copy_vec(const Vector<T>& other);
@@ -35,6 +37,7 @@ private:
 	int m_size;
 	T* m_arr;
 };
+
 
 //Implementation
 
@@ -249,6 +252,12 @@ void Vector<T>::print()
 		std::cout << m_arr[i] << " ";
 	}
 	std::cout << std::endl;
+}
+
+template<typename T>
+ T* Vector<T>::get_arr()
+{
+	return m_arr;
 }
 
 template <typename T>
