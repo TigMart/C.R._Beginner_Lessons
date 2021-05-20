@@ -8,7 +8,6 @@ template <typename T>
 class Vector
 {
 public:
-
 	Vector();  // default ctor
 	Vector(const Vector<T>& other); // copy ctor
 	Vector<T>& operator=(const Vector<T>& rhs); // copy assignment
@@ -29,6 +28,7 @@ public:
 	T& front();
 	T& back();
 	virtual void print();
+protected:
 	T* get_arr();
 private:
 	void ReAlloc();
