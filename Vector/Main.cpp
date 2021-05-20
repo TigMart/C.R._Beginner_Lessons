@@ -1,9 +1,17 @@
 #include "vector.h"
-
-Vector<int>&& move(Vector<int>& x);
+#include "Stack.h"
 
 int main()
 {
+	//Stack
+	Stack<int> s;
+	s.push(1);
+	s.push(2);
+	s.push(3);
+	s.print();
+	std::cout << std::endl<<"pop()-> " << s.pop() << std::endl;
+
+	//Vector
 	Vector<int> vec;
 	for (int i = 0; i < 5; ++i) {
 		vec.push_back(i);
@@ -66,8 +74,8 @@ int main()
 	vec2.print();
 
 	std::cout << std::endl;
-	std::cout << "After erase 4th element vector_1: " << std::endl;
-	vec.erase(4);
+	std::cout << "After erase 3th element vector_1: " << std::endl;
+	vec.erase(3);
 	vec.print();
 	std::cout << std::endl;
 	std::cout << "vector_3 elements: " << std::endl;
@@ -75,16 +83,12 @@ int main()
 	vec3.print();
 
 	std::cout << std::endl;
-	Vector<int> vec4(move(vec1));
+	Vector<int> vec4(std::move(vec1));
 	vec4.print();
 	vec1.print();
 	Vector<int> vec5;
-	vec5 = move(vec2);
+	vec5 = std::move(vec2);
 	vec5.print();
 	vec2.print();
 	return 0;
-}
-
-Vector<int>&& move(Vector<int>& x) {
-	return static_cast <Vector<int>&&>(x);
 }
