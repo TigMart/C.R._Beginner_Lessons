@@ -8,6 +8,7 @@ template <typename T>
 class Vector
 {
 public:
+
 	Vector();  // default ctor
 	Vector(const Vector<T>& other); // copy ctor
 	Vector<T>& operator=(const Vector<T>& rhs); // copy assignment
@@ -99,9 +100,10 @@ Vector<T>& Vector<T>::operator=(Vector<T>&& rv) noexcept
 		std::cout << "inqnaveragrum" << std::endl;
 		return *this;
 	}
-	m_capacity = rv.m_capacity;
-	m_size = rv.m_size;
-	m_arr = rv.m_arr;
+	delete[] this->m_arr;
+	this->m_capacity = rv.m_capacity;
+	this->m_size = rv.m_size;
+	this->m_arr = rv.m_arr;
 	rv.m_arr = nullptr;
 	rv.m_capacity = 0;
 	rv.m_size = 0;
@@ -185,15 +187,16 @@ template<typename T>
 void Vector<T>::push_front(const T& elem) {
 	if (m_size == m_capacity) {
 
-		m_capacity *= 2;
+		m_capacity = m_capacity ? m_capacity * 2 : 1;
 		T* temp = new T[m_capacity];
 		temp[0] = elem;
+		++m_size;
 		for (int i = 1; i < m_size; ++i) {
-			temp[i] = m_arr[i];
+			temp[i] = m_arr[i-1];
 		}
 		delete[] m_arr;
 		m_arr = temp;
-		++m_size;
+		
 	}
 	else if (m_size < m_capacity) {
 		for (int i = m_size; i > 0; --i) {
@@ -202,6 +205,8 @@ void Vector<T>::push_front(const T& elem) {
 		m_arr[0] = elem;
 		++m_size;
 	}
+	
+	
 }
 
 template <typename T>
