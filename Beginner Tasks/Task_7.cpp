@@ -9,16 +9,4 @@ int main()
     return 0;
 }
 
-/* or
-#include <iostream>
-
-int main()
-{
-    using namespace std;
-    cout << "Tigran\n";
-    cout << "Martirosyan\n";
-    return 0;
-}
-*/
-
 
