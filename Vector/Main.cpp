@@ -3,21 +3,20 @@
 
 int main()
 {
-	//Stack
 	Stack<int> s;
 	s.push(1);
 	s.push(2);
 	s.push(3);
 	s.print();
-	std::cout << std::endl<<"pop()-> " << s.pop() << std::endl;
+	std::cout << std::endl << "pop()-> " << s.pop() << std::endl << std::endl;
 
-	//Vector
+	
 	Vector<int> vec;
-	for (int i = 0; i < 5; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		vec.push_back(i);
 	}
 	Vector<int> vec1;
-	for (int i = 5; i < 10; ++i) {
+	for (int i = 4; i < 8; ++i) {
 		vec1.push_back(i);
 	}
 	std::cout << "Vector_1:  ";
@@ -25,6 +24,12 @@ int main()
 	std::cout << std::endl;
 	std::cout << "Vector_2:  ";
 	vec1.print();
+	std::cout << std::endl;
+	std::cout << "After erase 3th element vector_1: " << std::endl;
+	vec.erase(3);
+	vec.print();
+
+
 	std::cout << std::endl;
 	Vector<int> vec6(vec + vec1);
 	vec6.print();
@@ -40,13 +45,13 @@ int main()
 	std::cout <<std::endl<< "vector_1 size: " << vec.size() << std::endl;
 	std::cout << "vector_2 size: " << vec1.size() << std::endl;
 
-	vec.push(100, 1);
+	vec.insert(100, 1);
 	std::cout << std::endl << "After updating 1st index" << std::endl;
 
 	std::cout << "vector_1 elements: ";
 	vec.print();
 
-	vec1.push(100, 1);
+	vec1.insert(100, 1);
 	std::cout << "vector_2 elements: ";
 	vec1.print();
 
@@ -69,26 +74,24 @@ int main()
 	std::cout << "vector_1 elements: ";
 	vec.push_front(88);
 	vec.print();
-	vec2.push_front(77);
-	std::cout << "vector_2 elements: ";
-	vec2.print();
+	vec1.push_front(77);
 
-	std::cout << std::endl;
-	std::cout << "After erase 3th element vector_1: " << std::endl;
-	vec.erase(3);
-	vec.print();
+	std::cout << "vector_2 elements: ";
+	vec1.print();
+
 	std::cout << std::endl;
 	std::cout << "vector_3 elements: " << std::endl;
 	Vector<int> vec3(vec);
 	vec3.print();
 
 	std::cout << std::endl;
-	Vector<int> vec4(std::move(vec1));
+
+	Vector<int> vec4(Vector<int>::Vector());
 	vec4.print();
-	vec1.print();
+	vec.print();
 	Vector<int> vec5;
-	vec5 = std::move(vec2);
+	vec5 = std::move(vec);
 	vec5.print();
-	vec2.print();
+	vec.print();
 	return 0;
 }
