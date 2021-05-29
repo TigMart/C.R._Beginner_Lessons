@@ -8,17 +8,16 @@ template <typename T>
 class Vector
 {
 public:
-
 	Vector();  // default ctor
 	Vector(const Vector<T>& other); // copy ctor
 	Vector<T>& operator=(const Vector<T>& rhs); // copy assignment
 	Vector(Vector<T>&& rvalue)noexcept; // move ctor 
 	Vector<T>& operator=(Vector<T>&& rv)noexcept; // move assignment
-	Vector<T> operator+(const Vector<T>& oth); // operator+
+	Vector<T> operator+(const Vector<T>& other); // operator+
 	~Vector(); // dtor
-
+	//Methods
 	void push_back(const T& elem);
-	void push(const T& elem, int index);
+	void insert(const T& elem, int index);
 	T& operator[](int index)const;
 	void pop_Back();
 	int size()const;
@@ -111,12 +110,12 @@ Vector<T>& Vector<T>::operator=(Vector<T>&& rv) noexcept
 }
 
 template<typename T>
-Vector<T> Vector<T>::operator+(const Vector<T>& oth)
+Vector<T> Vector<T>::operator+(const Vector<T>& other)
 {
 	std::cout << "operator + " << std::endl;
 	Vector<T> result;
-	result.m_capacity = m_capacity + oth.m_capacity;
-	result.m_size = m_size + oth.m_size;
+	result.m_capacity = m_capacity + other.m_capacity;
+	result.m_size = m_size + other.m_size;
 	result.m_arr = new T[result.m_capacity];
 	int j = 0;
 	for (int i = 0; i < result.m_size; ++i) {
@@ -124,7 +123,7 @@ Vector<T> Vector<T>::operator+(const Vector<T>& oth)
 			result.m_arr[i] = m_arr[i];
 		}
 		else {
-			result.m_arr[i] = oth.m_arr[j];
+			result.m_arr[i] = other.m_arr[j];
 			++j;
 		}
 	}
@@ -140,14 +139,33 @@ void Vector<T>::push_back(const T& elem)
 	m_arr[m_size++] = elem;
 }
 
-template <typename T>
-void Vector<T>::push(const T& elem, int index)
-{
-	if (index == m_capacity)
-		push_back(elem);
 
-	else
-		m_arr[index] = elem;
+template<typename T>
+void Vector<T>::insert(const T& elem, int index)
+{
+	if (index >= 0 && index <= m_size) {
+		if (m_size == m_capacity) {
+			m_capacity = m_capacity ? m_capacity * 2 : 1;
+			T* tmp = new T[m_capacity];
+			for (int i = 0; i < index; ++i) {
+				tmp[i] = m_arr[i];
+			}
+			tmp[index] = elem;
+			for (int i = index + 1; i <= m_size; ++i) {
+				tmp[i] = m_arr[i - 1];
+			}
+			delete[] m_arr;
+			m_arr = tmp;
+			++m_size;
+		}
+		else {
+			for (int i = m_size; i > index; --i) {
+				m_arr[i] = m_arr[i - 1];
+			}
+			m_arr[index] = elem;
+			++m_size;
+		}
+	}
 }
 
 template <typename T>
@@ -212,17 +230,13 @@ void Vector<T>::push_front(const T& elem) {
 template <typename T>
 void Vector<T>::erase(int index)
 {
-	T* tmp = new T[m_capacity];
-	for (int i = 0; i < index; ++i) {
-		tmp[i] = m_arr[i];
+	if (index >= 0 && index < m_size) {
+		for (int i = index; i < m_size; ++i) {
+			m_arr[i] = m_arr[i + 1];		
+		}
+		--m_size;
 	}
-	for (int i = index + 1; i < m_size; ++i) {
-		tmp[i - 1] = m_arr[i];
-	}
-	m_size--;
-	delete[] m_arr;
-	m_arr = nullptr;
-	m_arr = tmp;
+	
 }
 
 template <typename T>
