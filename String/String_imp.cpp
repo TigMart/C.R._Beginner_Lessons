@@ -82,17 +82,76 @@ String String::operator+(const String& rhs) {
 	String tmp;
 	tmp.m_size = rhs.m_size + m_size;
 	tmp.m_capacity = rhs.m_capacity + m_capacity;
-	tmp.m_data = new char[tmp.m_capacity];
+	tmp.m_data = new char[tmp.m_capacity+1];
 	for (int i = 0; i < m_size; i++)
 	{
 		tmp.m_data[i] = m_data[i];
 	}
-	for (int i = m_size; i <= m_size + rhs.m_size; i++)
+	for (int i = m_size; i <= tmp.m_size; i++)
 	{
 		tmp.m_data[i] = rhs.m_data[i - m_size];
 	}
 	return tmp;
 }
+
+String& String::operator+=(const String& rhs)
+{
+	std::cout << "operator += " << std::endl;
+	String tmp;
+	tmp.m_size = rhs.m_size + m_size;
+	tmp.m_capacity = rhs.m_capacity + m_capacity;
+	tmp.m_data = new char[tmp.m_capacity+1];
+	for (int i = 0; i < m_size; i++)
+	{
+		tmp.m_data[i] = m_data[i];
+		
+	}
+	for (int i = m_size; i <= tmp.m_size; ++i)
+	{
+		tmp.m_data[i] = rhs.m_data[i - m_size];
+		
+	}
+	delete[] m_data;
+	m_data = tmp.m_data;
+	m_capacity = tmp.m_capacity;
+	m_size = tmp.m_size;
+	tmp.m_data = nullptr;
+	return *this;
+}
+
+String& String::operator+=(const char* rhs)
+{
+	std::cout << "operator += char* " << std::endl;
+	/*for (int i = 0; i < strlen(rhs); ++i) {
+		this->push_back(rhs[i]);
+	}*/
+		char* tmp;
+		int tmp_capacity = m_capacity + strlen(rhs);
+		int tmp_size = m_size + strlen(rhs);
+		tmp = new char[tmp_size+1];
+		for (int i = 0; i < m_size; ++i) {
+			tmp[i] = m_data[i];
+		}
+		for (int i = m_size,j=0; i < tmp_size; ++i,++j)
+		{
+			tmp[i] = rhs[j];
+		}
+		delete[] m_data;
+		m_data = tmp;
+		tmp = nullptr;
+		m_capacity = tmp_capacity;
+		m_size = tmp_size;
+		m_data[m_size] = '\0';
+		return *this;
+}
+
+String& String::operator+=(char symbol)
+{
+	std::cout << "operator += char " << std::endl;
+	this->push_back(symbol);
+	return *this;
+}
+
 
 char& String::operator[](int index) { return m_data[index]; }
 
@@ -143,27 +202,43 @@ void String::pop_back()
 	m_data[m_size] = '\0';
 }
 
-void String::insert(const char& ch, int index)
+void String::insert(const char ch, int index)
 {
-	if (index == m_capacity)
-		push_back(ch);
-	else
-		m_data[index] = ch;
+	if (index >= 0 && index <= m_size) {
+		if (m_size == m_capacity) {
+			m_capacity = m_capacity ? m_capacity * 2 : 1;
+			char* tmp = new char[m_capacity];
+			for (int i = 0; i < index; ++i) {
+				tmp[i] = m_data[i];
+			}
+			tmp[index] = ch;
+			for (int i = index + 1; i <= m_size; ++i) {
+				tmp[i] = m_data[i - 1];
+			}
+			delete[] m_data;
+			m_data = tmp;
+			++m_size;
+			m_data[m_size] = '\0';
+		}
+		else {
+			for (int i = m_size; i > index; --i) {
+				m_data[i] = m_data[i - 1];
+			}
+			m_data[index] = ch;
+			++m_size;
+		}
+		m_data[m_size] = '\0';
+	}
 }
 
 void String::erase(int index)
 {
-	char* temp = new char[m_capacity];
-	for (int i = 0; i < index; ++i) {
-		temp[i] = m_data[i];
+	if (index >= 0 && index < m_size) {
+		for (int i = index; i < m_size; ++i) {
+			m_data[i] = m_data[i + 1];
+		}
+		--m_size;
 	}
-	for (int i = index + 1; i < m_size; ++i) {
-		temp[i - 1] = m_data[i];
-	}
-	m_size--;
-	delete[] m_data;
-	m_data = nullptr;
-	m_data = temp;
 	m_data[m_size] = '\0';
 }
 
