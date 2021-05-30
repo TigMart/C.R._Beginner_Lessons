@@ -13,13 +13,16 @@ public:
 	String(String&& rhs)noexcept; // move ctor 
 	String& operator=(String&& rhs)noexcept; // move assignment
 	String operator+(const String& other); // operator+
+	String& operator+=(const String& rhs); // operator+=
+	String& operator+=(const char* rhs);// operator+=
+	String& operator+=(char symbol);// operator+=
 	char& operator[](int index); // subscript*/
 	~String(); // dtor
 
 	void push_back(const char ch);
 	void push_front(const char ch);
 	void pop_back();
-	void insert(const char& ch, int index);
+	void insert(const char ch, int index);
 	void erase(int index);;
 	bool empty() const;
 	int size() const;
